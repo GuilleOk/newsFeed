@@ -1,5 +1,5 @@
 /* eslint-disable no-irregular-whitespace */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useSearch } from '../hooks/useSearch'
 import { useFeedContext } from '../hooks/useFeedContext'
 
@@ -7,8 +7,10 @@ const Header = () => {
   const [category, setCategory] = useState('')
   const [theme, setTheme] = useState('')
   const { postsToShow, getPosts } = useSearch()
-  const previousPost = useRef()
-  const { feed, addToFedd } =useFeedContext()
+  const previousPost = useRef('something')
+  const [search, setSearch] = useState(false)
+  const { feed, addToFedd } = useFeedContext()
+  const categorysForInitialSearch = ['general', 'world', 'business', 'business', 'technology', 'entertainment', 'sports', 'science', 'health']
 
   const handleCategory = (e) => {
     setCategory(e.target.value)
@@ -18,24 +20,52 @@ const Header = () => {
     setTheme(e.target.value)
   }
 
-  useEffect(() => {
-    console.log('theme: ', theme.trim().toUpperCase())
-  }, [theme])
+  // useEffect(() => {
+  //   const load = async () => {
+  //     setSearch(true)  
+  //     for (const categoria of categorysForInitialSearch) {
+  //       await getPosts({ category: categoria, theme: '' })
+  //       if (postsToShow !== undefined && postsToShow !== previousPost.current) {
+  //         const { about, content } = postsToShow
+  //         console.log('content: ', content)
+  //         content.forEach(item => addToFedd({ about, content: item }))
+  //         previousPost.current = postsToShow
+  //         setTimeout(()=> {}, 100)
+  //       }
+  //     }
+  //     setSearch(false)
+  //   }
+  //   load()
+  // }, [])
+  
 
   useEffect(() => {
-    if (postsToShow !== undefined || postsToShow !== previousPost.current) {
+    console.log('category: ', category)
+    console.log('theme: ', theme.trim().toUpperCase())
+  }, [category, theme])
+
+  useEffect(() => {
+    if (postsToShow !== undefined && postsToShow !== previousPost.current && search) {
       const { about, content } = postsToShow
+      console.log('content: ', content)
       content.forEach(item => addToFedd({ about, content: item }))
       previousPost.current = postsToShow
+      setSearch(false)
     }
-    console.log('feed: ', feed)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postsToShow])
+  }, [search])
   
+  useEffect(() => {
+    console.log('feed: ', feed)
+  }, [feed])
   
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('category: ', category)
+    console.log('theme: ', theme)
     await getPosts({ category, theme })
+    setSearch(true)
   }
 
   return (

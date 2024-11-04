@@ -43,8 +43,11 @@ const reducer = (state, action) => {
     case 'ADD_TO_FEED': {
       const index = state.findIndex(item => action.payload.about === item.category)
       const index_exist = state[index].content.findIndex(item => action.payload.content.url === item.url)
-      if (index_exist !== -1) {
-        return [...state, action.payload]
+      if (index_exist === -1) {
+        let newState = structuredClone(state)
+        const newContent = [...newState[index].content, action.payload.content]
+        newState[index].content = structuredClone(newContent)
+        return newState
       }
     }
       
