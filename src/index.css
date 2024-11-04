@@ -7,7 +7,7 @@ body{
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 2.7fr repeat(8, 1fr);
+  grid-template-columns: 2.3fr repeat(8, 1fr) 1.7fr;
   min-height: 2rem;
 }
 
@@ -48,27 +48,24 @@ body{
   justify-content: center;
 }
 
-.headerContainer#salud{
-  border-right:0px ;
-}
-
-.headerContainer form{
-  width: 99%;
-  height: 90%;
-  padding: .2rem .2rem;
-}
-
 .formHeaderContainer{
   background-color: black;
   margin: 0;
-  border-right: 1px solid white;
-  border-bottom-right-radius: 8px;  
-  height: 2rem;
+  border-left: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .formHeader{
   display: flex;
   justify-content: space-between;
+  border: 1px solid whitesmoke;
+  opacity: .5;
+  width: 90%;
+  height: 70%;
+  padding: .1rem .1rem;
+  border-radius: 25px;
 }
 
 .inputSearch{
@@ -77,15 +74,13 @@ body{
   background-color: black;
   padding-top: .15rem;
   height: 90%;
-  width: 98%;
-  border-bottom: 1px solid whitesmoke;
+  width: 90%;
   color: darkgray;
-  margin-left: .3rem;
+  margin-left: 1.2rem;
 }
 
 .inputSearch:focus{
   outline: none;
-  border-bottom: 1px solid whitesmoke;
 }
 
 .buttonFormHeader{

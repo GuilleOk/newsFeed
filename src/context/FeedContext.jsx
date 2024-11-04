@@ -41,7 +41,8 @@ const initialState = [
 const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TO_FEED': {
-      const index_exist = state.findIndex(item => action.payload.url === item.url)
+      const index = state.findIndex(item => action.payload.about === item.category)
+      const index_exist = state[index].content.findIndex(item => action.payload.content.url === item.url)
       if (index_exist !== -1) {
         return [...state, action.payload]
       }
@@ -49,7 +50,11 @@ const reducer = (state, action) => {
       
     // eslint-disable-next-line no-fallthrough
     case 'REMOVE_FROM_FEED': {
-      return state.filter(item => item.url !== action.payload)
+      const index = state.findIndex(item => action.payload.about === item.category)
+      let actualState = structuredClone(state)
+      const actualContent = actualState[index].content.filter(item => item.url !== action.payload.content.url)
+      actualState[index].content = structuredClone(actualContent)
+      return actualState
     }
       
     case 'CLEAR_FEED': {

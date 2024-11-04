@@ -4,9 +4,15 @@ import React, { useEffect, useState } from 'react'
 const Header = () => {
   const [category, setCategory] = useState('')
   const [theme, setTheme] = useState('')
+  const [showForm, setShowForm] = useState(false)
 
   const handleCategory = (e) => {
     setCategory(e.target.value)
+    setShowForm(true)
+  }
+
+  const hideForm = () => {
+    setShowForm(false)
   }
 
   const handleInputChange = (e) => {
@@ -16,6 +22,14 @@ const Header = () => {
   useEffect(() => {
     console.log('theme: ', theme.trim().toUpperCase())
   }, [theme])
+  
+
+  useEffect(() => {
+    if (!showForm) {
+      setCategory('')
+      setTheme('')
+    }
+  }, [showForm])
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -52,7 +66,7 @@ const Header = () => {
         </div>
         <div className='formHeaderContainer' id='search'>
           <form className='formHeader' onSubmit={handleSubmit} >
-            <input type="text" value={theme} className='inputSearch' placeholder='Buscar...' onChange={handleInputChange} />
+            <input type="text" value={theme} className='inputSearch' onChange={handleInputChange} />
             <button className='buttonFormHeader'>🔎​</button>
           </form>
         </div>
