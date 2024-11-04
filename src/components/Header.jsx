@@ -1,18 +1,17 @@
 /* eslint-disable no-irregular-whitespace */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useSearch } from '../hooks/useSearch'
+import { useFeedContext } from '../hooks/useFeedContext'
 
 const Header = () => {
   const [category, setCategory] = useState('')
   const [theme, setTheme] = useState('')
-  const [showForm, setShowForm] = useState(false)
+  const { postsToShow, getPosts } = useSearch()
+  const previousPost = useRef()
+  const { feed, addToFedd } =useFeedContext()
 
   const handleCategory = (e) => {
     setCategory(e.target.value)
-    setShowForm(true)
-  }
-
-  const hideForm = () => {
-    setShowForm(false)
   }
 
   const handleInputChange = (e) => {
@@ -22,18 +21,21 @@ const Header = () => {
   useEffect(() => {
     console.log('theme: ', theme.trim().toUpperCase())
   }, [theme])
-  
 
   useEffect(() => {
-    if (!showForm) {
-      setCategory('')
-      setTheme('')
+    if (postsToShow !== undefined || postsToShow !== previousPost.current) {
+      const { about, content } = postsToShow
+      content.forEach(item => addToFedd({ about, content: item }))
+      previousPost.current = postsToShow
     }
-  }, [showForm])
+    console.log('feed: ', feed)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postsToShow])
   
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    
+    await getPosts({ category, theme })
   }
 
   return (
