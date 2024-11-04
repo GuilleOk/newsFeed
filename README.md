@@ -1,4 +1,4 @@
-- Se le pedirá que elija la categoría a buscar: general, world, nation, business, technology, entertainment, sports, science and health => no es requerido por default va a ser general
+- Se le pedirá que elija la categoría a buscar: general, world, business, technology, entertainment, sports, science and health => no es requerido por default va a ser general
 <!-- - Se pedirá el país del cual se desea tomar la noticia (para esto hace falta trabajar con una api que convierta a código ISO 3166-1 el nombre del país puesto que es requerido por la api de noticias)
   ||=> no es requerido -->
 
