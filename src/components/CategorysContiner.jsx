@@ -16,7 +16,7 @@ const CategorysContiner = () => {
   }, [feed])
   
   return (
-    <div>
+    <div className='categorysContainer'>
       {
         feed.map((itemFeed, i) => {
           if (itemFeed.content.length !== 0) {
@@ -30,7 +30,7 @@ const CategorysContiner = () => {
                 {
                   itemFeed.content.map(({title, description, url, image, publishedAt}) => {
                     return (
-                      <News key={url} title={title} description={description} url={url} image={image} publishedAt={publishedAt} />
+                      <News key={url} category={itemFeed.category} title={title} description={description} url={url} image={image} publishedAt={publishedAt} />
                     )
                   })
                 }
