@@ -5,7 +5,9 @@ export const useSearch = () => {
   const [postsToShow, setPostToShow] = useState()
   
   const getPosts = async ({ category, theme }) => {
-    const url = theme !== '' ? `https://gnews.io/api/v4/top-headlines?category=${category}&lang=es&q=${theme}&apikey=f61c1e72a43a165de8b2202084e4d34c` : `https://gnews.io/api/v4/top-headlines?category=${category}&lang=es&apikey=f61c1e72a43a165de8b2202084e4d34c`
+    const url = theme !== '' 
+      ? `https://gnews.io/api/v4/top-headlines?category=${category}&max=8&lang=es&q=${theme}&apikey=f61c1e72a43a165de8b2202084e4d34c`
+      : `https://gnews.io/api/v4/top-headlines?category=${category}&max=8&lang=es&apikey=f61c1e72a43a165de8b2202084e4d34c`
     
     try {
       const response = await fetch(url)

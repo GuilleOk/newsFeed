@@ -1,5 +1,5 @@
 /* eslint-disable no-irregular-whitespace */
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSearch } from '../hooks/useSearch'
 import { useFeedContext } from '../hooks/useFeedContext'
 
@@ -10,7 +10,8 @@ const Header = () => {
   const previousPost = useRef('something')
   const [search, setSearch] = useState(false)
   const { feed, addToFedd } = useFeedContext()
-  const categorysForInitialSearch = ['general', 'world', 'business', 'business', 'technology', 'entertainment', 'sports', 'science', 'health']
+  // const categorysForInitialSearch = ['general', 'world', 'business', 'business', 'technology', 'entertainment']
+  // const categorysForInitialSearch = ['general', 'world', 'business', 'business', 'technology', 'entertainment', 'sports', 'science', 'health']
 
   const handleCategory = (e) => {
     setCategory(e.target.value)
@@ -25,12 +26,12 @@ const Header = () => {
   //     setSearch(true)  
   //     for (const categoria of categorysForInitialSearch) {
   //       await getPosts({ category: categoria, theme: '' })
-  //       if (postsToShow !== undefined && postsToShow !== previousPost.current) {
+  //       await setTimeout(() => {}, 1000)
+  //       if (postsToShow !== undefined) {
   //         const { about, content } = postsToShow
   //         console.log('content: ', content)
   //         content.forEach(item => addToFedd({ about, content: item }))
   //         previousPost.current = postsToShow
-  //         setTimeout(()=> {}, 100)
   //       }
   //     }
   //     setSearch(false)
