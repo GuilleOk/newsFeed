@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+// import React from 'react'
 import { useFeedContext } from '../hooks/useFeedContext'
 
 const News = ({ category, title, description, url, image, publishedAt }) => {
@@ -13,7 +13,7 @@ const News = ({ category, title, description, url, image, publishedAt }) => {
         <img src="../../public/images/remove.png" alt="remove" className='removeImage' onClick={() => handleRemove({ category, url })} />
       </div>
       <img src={image} alt={title} className='imageNews' />
-      <a href={url} className='newsLink'><h3>{title}</h3></a>
+      <a href={url} className='newsLink' target="_blank" rel="noopener noreferrer"><h3>{title}</h3></a>
       <p>{description}</p>
       <small className='dateNews'>{ publishedAt }</small>
     </div>
