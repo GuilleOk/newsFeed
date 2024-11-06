@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-irregular-whitespace */
 import { useEffect, useRef, useState } from 'react'
@@ -10,57 +11,25 @@ const Header = ({ getRecordSearch }) => {
   const { postsToShow, getPosts } = useSearch()
   const previousPost = useRef('something')
   const [search, setSearch] = useState(false)
-  const { feed, addToFedd } = useFeedContext()
-  // const categorysForInitialSearch = ['general', 'world', 'business', 'business', 'technology', 'entertainment']
-  // const categorysForInitialSearch = ['general', 'world', 'business', 'business', 'technology', 'entertainment', 'sports', 'science', 'health']
+  const { addToFedd } = useFeedContext()
 
-  const handleCategory = (e) => {
-    setCategory(e.target.value)
+  const initialLoad = async () => {
+    getRecordSearch({about: 'general'})
+    await getPosts({ category: 'general', theme })
+    setSearch(true)
+  }
+
+  const handleCategory = async(e) => {
+    const category = e.target.value
+    setCategory(category)
+    getRecordSearch({about: category})
+    await getPosts({ category, theme })
+    setSearch(true)
   }
 
   const handleInputChange = (e) => {
     setTheme(e.target.value)
   }
-
-  // useEffect(() => {
-  //   const load = async () => {
-  //     setSearch(true)  
-  //     for (const categoria of categorysForInitialSearch) {
-  //       await getPosts({ category: categoria, theme: '' })
-  //       await setTimeout(() => {}, 1000)
-  //       if (postsToShow !== undefined) {
-  //         const { about, content } = postsToShow
-  //         console.log('content: ', content)
-  //         content.forEach(item => addToFedd({ about, content: item }))
-  //         previousPost.current = postsToShow
-  //       }
-  //     }
-  //     setSearch(false)
-  //   }
-  //   load()
-  // }, [])
-  
-
-  useEffect(() => {
-    console.log('category: ', category)
-    console.log('theme: ', theme.trim().toUpperCase())
-  }, [category, theme])
-
-  useEffect(() => {
-    if (postsToShow !== undefined && postsToShow !== previousPost.current && search) {
-      const { about, content } = postsToShow
-      console.log('content: ', content)
-      content.forEach(item => addToFedd({ about, content: item }))
-      previousPost.current = postsToShow
-      setSearch(false)
-      setCategory('')
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search])
-  
-  useEffect(() => {
-    console.log('feed: ', feed)
-  }, [feed])
   
   const handleFocus = () => {
     setTheme('')
@@ -68,12 +37,24 @@ const Header = ({ getRecordSearch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('category: ', category)
-    console.log('theme: ', theme)
     getRecordSearch({about: category})
     await getPosts({ category, theme })
     setSearch(true)
   }
+
+  useEffect(() => {
+    initialLoad()
+  }, [])
+
+  useEffect(() => {
+    if (postsToShow !== undefined && postsToShow !== previousPost.current && search) {
+      const { about, content } = postsToShow
+      content.forEach(item => addToFedd({ about, content: item }))
+      previousPost.current = postsToShow
+      setSearch(false)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search])
 
   return (
     <div>

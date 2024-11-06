@@ -48,6 +48,8 @@ const reducer = (state, action) => {
         const newContent = [action.payload.content, ...newState[index].content]
         newState[index].content = structuredClone(newContent)
         return newState
+      } else {
+        return state
       }
     }
       

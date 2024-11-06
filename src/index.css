@@ -109,7 +109,7 @@ body{
   padding-top: .15rem;
   height: 90%;
   width: 90%;
-  color: darkgray;
+  color: white;
   margin-left: 1.2rem;
 }
 
@@ -237,6 +237,7 @@ body{
 
 .followText{
   margin: 0 0;
+  font-size: larger;
 }
 
 .links{
@@ -269,5 +270,5 @@ hr{
 .textSecondLine{
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: white;
-  font-size: x-large;
+  font-size: large;
 }

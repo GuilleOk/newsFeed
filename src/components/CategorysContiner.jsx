@@ -18,7 +18,6 @@ const CategorysContiner = ({ recordSearch }) => {
         setFirsElement(recordSearch[0].index)
       }
     }
-    console.log('record: ', recordSearch)
   }, [feed])
   
   return (
