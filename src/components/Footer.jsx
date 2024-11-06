@@ -7,11 +7,11 @@ const Footer = () => {
           <h2 className='folowText'>Síguenos en</h2>
         </div>
         <div className='links'>
-          <a href="..."><img src="../../public/images/redes_sociales/facebook_2504903.png" alt="Facebbok" className='imgFooter' /></a>
-          <a href="..."><img src="../../public/images/redes_sociales/instagram_2111463.png" alt="Instagram" className='imgFooter' /></a>
-          <a href="..."><img src="../../public/images/redes_sociales/linkedin_3536505.png" alt="Linkedin" className='imgFooter' /></a>
-          <a href="..."><img src="../../public/images/redes_sociales/twitter_2504947.png" alt="Twitter" className='imgFooter' /></a>
-          <a href="..."><img src="../../public/images/redes_sociales/youtube_3938037.png" alt="Youtube" className='imgFooter' /></a>
+          <a href="..."><img src="images/redes_sociales/facebook_2504903.png" alt="Facebbok" className='imgFooter' /></a>
+          <a href="..."><img src="images/redes_sociales/instagram_2111463.png" alt="Instagram" className='imgFooter' /></a>
+          <a href="..."><img src="images/redes_sociales/linkedin_3536505.png" alt="Linkedin" className='imgFooter' /></a>
+          <a href="..."><img src="images/redes_sociales/twitter_2504947.png" alt="Twitter" className='imgFooter' /></a>
+          <a href="..."><img src="images/redes_sociales/youtube_3938037.png" alt="Youtube" className='imgFooter' /></a>
         </div>
       </div>
       <hr />
