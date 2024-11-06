@@ -45,7 +45,7 @@ const reducer = (state, action) => {
       const index_exist = state[index].content.findIndex(item => action.payload.content.url === item.url)
       if (index_exist === -1) {
         let newState = structuredClone(state)
-        const newContent = [...newState[index].content, action.payload.content]
+        const newContent = [action.payload.content, ...newState[index].content]
         newState[index].content = structuredClone(newContent)
         return newState
       }

@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-irregular-whitespace */
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearch } from '../hooks/useSearch'
 import { useFeedContext } from '../hooks/useFeedContext'
 
-const Header = () => {
+const Header = ({ getRecordSearch }) => {
   const [category, setCategory] = useState('')
   const [theme, setTheme] = useState('')
   const { postsToShow, getPosts } = useSearch()
@@ -52,6 +53,7 @@ const Header = () => {
       content.forEach(item => addToFedd({ about, content: item }))
       previousPost.current = postsToShow
       setSearch(false)
+      setCategory('')
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
@@ -60,11 +62,15 @@ const Header = () => {
     console.log('feed: ', feed)
   }, [feed])
   
+  const handleFocus = () => {
+    setTheme('')
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('category: ', category)
     console.log('theme: ', theme)
+    getRecordSearch({about: category})
     await getPosts({ category, theme })
     setSearch(true)
   }
@@ -74,32 +80,32 @@ const Header = () => {
       <div className="navbar">
         <div className='logoHeader'><strong>AllNews</strong></div>
         <div className='headerContainer'>
-          <button value='general' onClick={handleCategory}>General</button>
+          <button value='general' className={'general' === category ? 'buttonHeaderClick' : 'buttonHeader'} onClick={handleCategory}>General</button>
         </div>
         <div className='headerContainer'>
-          <button value='world' onClick={handleCategory}>El Mundo</button>
+          <button value='world' className={'world' === category ? 'buttonHeaderClick' : 'buttonHeader'} onClick={handleCategory}>El Mundo</button>
         </div>
         <div className='headerContainer'>
-          <button value='business' onClick={handleCategory}>Negocios</button>
+          <button value='business' className={'business' === category ? 'buttonHeaderClick' : 'buttonHeader'} onClick={handleCategory}>Negocios</button>
         </div>
         <div className='headerContainer'>
-          <button value='technology' onClick={handleCategory}>Tecnología</button>
+          <button value='technology' className={'technology' === category ? 'buttonHeaderClick' : 'buttonHeader'} onClick={handleCategory}>Tecnología</button>
         </div>
         <div className='headerContainer'>
-          <button value='entertainment' onClick={handleCategory}>Entretenimiento</button>
+          <button value='entertainment' className={'entertainment' === category ? 'buttonHeaderClick' : 'buttonHeader'} onClick={handleCategory}>Entretenimiento</button>
         </div>
         <div className='headerContainer'>
-          <button value='sports' onClick={handleCategory}>Deporte</button>
+          <button value='sports' className={'sports' === category ? 'buttonHeaderClick' : 'buttonHeader'} onClick={handleCategory}>Deporte</button>
         </div>
         <div className='headerContainer'>
-          <button value='science' onClick={handleCategory}>Ciencia</button>
+          <button value='science' className={'science' === category ? 'buttonHeaderClick' : 'buttonHeader'} onClick={handleCategory}>Ciencia</button>
         </div>
         <div className='headerContainer' id='salud'>
-          <button value='health' onClick={handleCategory}>Salud</button>          
+          <button value='health' className={'health' === category ? 'buttonHeaderClick' : 'buttonHeader'} onClick={handleCategory}>Salud</button>          
         </div>
         <div className='formHeaderContainer' id='search'>
           <form className='formHeader' onSubmit={handleSubmit} >
-            <input type="text" value={theme} className='inputSearch' onChange={handleInputChange} />
+            <input type="text" value={theme} className='inputSearch' onChange={handleInputChange} onFocus={handleFocus} />
             <button className='buttonFormHeader'>🔎​</button>
           </form>
         </div>

@@ -5,7 +5,7 @@ import { useFeedContext } from '../hooks/useFeedContext'
 const News = ({ category, title, description, url, image, publishedAt }) => {
   const { removeFormFeed } = useFeedContext()
   const handleRemove = ({ category, url }) => {
-    removeFormFeed({about: category, content: {url}})
+    removeFormFeed({ about: category, content: { url } })
   }
   return (
     <div className='newsContainer'>

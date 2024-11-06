@@ -1,41 +1,46 @@
-import React, { useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from 'react'
 import { useFeedContext } from '../hooks/useFeedContext'
 import News from './News'
 
-const CategorysContiner = () => {
+const CategorysContiner = ({ recordSearch }) => {
   const { feed } = useFeedContext()
-  const [firstWithContent, setFirstWithContent] = useState(null)
   const nameCategorys = ['General', 'El Mundo', 'Negocios', 'Tecnología', 'Entretenimiento', 'Deporte', 'Ciencia', 'Salud']
+  const [firsElement, setFirsElement] = useState('')
 
   useEffect(() => {
-    const index = feed.findIndex(item => item.content.length !== 0)
-
-    if (index !== -1) {
-      setFirstWithContent(index)
+    if (recordSearch.length !== 0) {
+      const i = recordSearch.findIndex(item => feed[item.index].content.length !== 0)
+      if (i !== -1 && recordSearch.length !== 0) {
+        setFirsElement(recordSearch[i].index)
+      } else {
+        setFirsElement(recordSearch[0].index)
+      }
     }
+    console.log('record: ', recordSearch)
   }, [feed])
   
   return (
     <div className='categorysContainer'>
       {
-        feed.map((itemFeed, i) => {
-          if (itemFeed.content.length !== 0) {
-
+        recordSearch.map(itemRecord => {
+          if (feed[itemRecord.index].content.length !== 0) {
             return (
-              <div key={itemFeed.category} className='categoryContainer'>
-                <header className={i !== firstWithContent ? 'headerCategory' : ''}>
-                  <h2 className='h2Header'>{nameCategorys[i]}</h2>
-                </header>
-                <div className='allNewsContainer'>
-                {
-                  itemFeed.content.map(({title, description, url, image, publishedAt}) => {
-                    return (
-                      <News key={url} category={itemFeed.category} title={title} description={description} url={url} image={image} publishedAt={publishedAt} />
-                    )
-                  })
-                }
-                </div>
-              </div>
+              <div key={itemRecord.category} className='categoryContainer'>
+                   <header className={firsElement !== itemRecord.index ? 'headerCategory' : ''}>
+                     <h2 className='h2Header'>{nameCategorys[itemRecord.index]}</h2>
+                   </header>
+                   <div className='allNewsContainer'>
+                   {
+                     feed[itemRecord.index].content.map(({title, description, url, image, publishedAt}) => {
+                       return (
+                         <News key={url} category={itemRecord.category} title={title} description={description} url={url} image={image} publishedAt={publishedAt} />
+                       )
+                     })
+                   }
+                   </div>
+                 </div>
             )
           }
         })
