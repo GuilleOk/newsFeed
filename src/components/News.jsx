@@ -10,7 +10,7 @@ const News = ({ category, title, description, url, image, publishedAt }) => {
   return (
     <div className='newsContainer'>
       <div className='remvoveContainer'>
-        <img src="../../public/images/remove.png" alt="remove" className='removeImage' onClick={() => handleRemove({ category, url })} />
+        <img src="images/remove.png" alt="remove" className='removeImage' onClick={() => handleRemove({ category, url })} />
       </div>
       <img src={image} alt={title} className='imageNews' />
       <a href={url} className='newsLink' target="_blank" rel="noopener noreferrer"><h3>{title}</h3></a>

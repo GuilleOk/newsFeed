@@ -22,9 +22,6 @@ const Header = ({ getRecordSearch }) => {
   const handleCategory = async(e) => {
     const category = e.target.value
     setCategory(category)
-    getRecordSearch({about: category})
-    await getPosts({ category, theme })
-    setSearch(true)
   }
 
   const handleInputChange = (e) => {
