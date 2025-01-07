@@ -34,9 +34,14 @@ const Header = ({ getRecordSearch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    getRecordSearch({about: category})
-    await getPosts({ category, theme })
+    if (category === '') {
+      setCategory('general')
+    }
+    const categoryToSearch = category === '' ? 'general' : category
+    getRecordSearch({about: categoryToSearch})
+    await getPosts({ category: categoryToSearch, theme })
     setSearch(true)
+    console.log('category', category)
   }
 
   useEffect(() => {
