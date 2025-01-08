@@ -3,11 +3,20 @@
 import { useEffect, useState } from 'react'
 import { useFeedContext } from '../hooks/useFeedContext'
 import News from './News'
+import { useSearch } from '../hooks/useSearch'
 
 const CategorysContiner = ({ recordSearch }) => {
   const { feed } = useFeedContext()
+  const {actualError} = useSearch()
   const nameCategorys = ['General', 'El Mundo', 'Negocios', 'Tecnología', 'Entretenimiento', 'Deporte', 'Ciencia', 'Salud']
   const [firsElement, setFirsElement] = useState('')
+
+  useEffect(() => {
+    if (actualError !== '') {
+      alert(`Error: ${actualError}`)      
+    }
+  }, [actualError])
+  
 
   useEffect(() => {
     if (recordSearch.length !== 0) {
@@ -18,6 +27,7 @@ const CategorysContiner = ({ recordSearch }) => {
         setFirsElement(recordSearch[0].index)
       }
     }
+    console.log('feed: ', feed)
   }, [feed])
   
   return (

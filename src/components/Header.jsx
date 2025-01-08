@@ -8,7 +8,7 @@ import { useFeedContext } from '../hooks/useFeedContext'
 const Header = ({ getRecordSearch }) => {
   const [category, setCategory] = useState('')
   const [theme, setTheme] = useState('')
-  const { postsToShow, getPosts } = useSearch()
+  const { postsToShow, getPosts, actualError } = useSearch()
   const previousPost = useRef('something')
   const [search, setSearch] = useState(false)
   const { addToFedd } = useFeedContext()
@@ -49,11 +49,24 @@ const Header = ({ getRecordSearch }) => {
   }, [])
 
   useEffect(() => {
-    if (postsToShow !== undefined && postsToShow !== previousPost.current && search) {
-      const { about, content } = postsToShow
-      content.forEach(item => addToFedd({ about, content: item }))
-      previousPost.current = postsToShow
-      setSearch(false)
+    if (actualError !== '') {
+      alert(actualError)
+    }
+  }, [actualError])
+  
+
+  useEffect(() => {
+    if (postsToShow !== previousPost.current) {
+      if (postsToShow !== undefined && search) {
+        const { about, content } = postsToShow
+        content.forEach(item => addToFedd({ about, content: item }))
+        previousPost.current = postsToShow
+        setSearch(false)
+      }
+      console.log('postsToShow: ', postsToShow)
+      if (postsToShow?.content.length === 0 && previousPost.current !== 'something') {
+        alert('No se encontró nada, por favor cambie el criterio de búsqueda')
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
